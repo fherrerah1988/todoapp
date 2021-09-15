@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <!-- Font AWESOME -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- My css -->
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <title>Todo Django</title>
+  </head>
+  <body>
+    <div class="center">
+      <h1 class="d-flex justify-content-center">Tareas Django</h1>
+      <br>
+      <br>
+      <br>
+      <div class="d-flex justify-content-center">
+        <form action="{% url 'add' %}" method="POST" role="form" class="form-inline">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <!--input type="text" class="form-control" placeholder="Escribe una tarea" aria-label="Todo" aria-describeby="add-btn"-->
+            {{form.text}}
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="submit"><i class="fas fa-plus"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="row">
+                <div class="input-group-append">
+                    <a href="{% url 'deletecompleted' %}"><button class="btn btn-outline-secondary" ><i class="fas fa-trash-alt"> Completadas</i></button></a>
+                    <a href="{% url 'deleteall' %}"><button class="btn btn-outline-secondary" ><i class="fas fa-trash-alt"> Todo</i></button></a>
+              </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="d-flex justify-content-center">
+        <ul id="myUL">
+          {% for todolist in todo_items %}
+          {% if todolist.completed %}
+          <li class="list-group-item checked">{{todolist.text}}</li>
+          {% else %}
+          <a href="{% url 'completed' todolist.id %}"><li class="list-group-item">{{todolist.text}}</li></a>
+          {% endif %}
+          {% endfor %}
+          </ul>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- My fucntions -->
+    <script src="myfunctions.js"></script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
